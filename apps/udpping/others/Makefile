@@ -1,0 +1,20 @@
+CC_RR=x86_64-rumprun-netbsd-gcc
+RR_BAKE=rumprun-bake
+
+main: udpping.c
+	$(CC) udpping.c -o udpping
+
+rumprun: udpping.c
+	$(CC_RR) udpping.c -o udpping
+
+rumprun_xen: rumprun
+	$(RR_BAKE) xen_pv udpping.bin udpping
+	rm udpping
+
+rumprun_kvm: rumprun
+	$(RR_BAKE) hw_virtio udpping.bin udpping
+	rm udpping
+
+clean:
+	rm -f udpping
+	rm -f udpping.bin
