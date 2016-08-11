@@ -1,0 +1,6 @@
+[submodule "unikernel/rumprun"]
+	path = unikernel/rumprun
+	url = https://github.com/rumpkernel/rumprun
+[submodule "apps/rumprun-packages"]
+	path = apps/rumprun-packages
+	url = https://github.com/rumpkernel/rumprun-packages
