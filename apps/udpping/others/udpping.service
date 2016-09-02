@@ -1,0 +1,9 @@
+[Unit]
+Description=UDP Ping
+
+[Service]
+Type=simple
+ExecStart=/opt/udpping
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,47 @@
+sudo apt install lxd
+sudo dpkg-reconfigure -p medium lxd
+sudo lxd init
+sudo service lxd-bridge stop && sudo service lxd restart
+
+lxc launch ubuntu:16.04 udpping-build
+lxc file push build_udpping_lxd.sh udpping-build/root/
+lxc exec udpping-build bash
+
+apt update && apt install -y wget build-essential make
+wget --no-check-certificate https://www.dcl.hpi.uni-potsdam.de/media/udpping_infinite.c
+cc -DSERVER=\"192.168.42.78\" udpping_infinite.c -o udpping
+mv udpping /opt/
+
+wget --no-check-certificate https://www.dcl.hpi.uni-potsdam.de/media/udpping.service
+mv udpping.service /etc/systemd/system/udpping.service
+systemctl enable udpping.service
+exit
+
+lxc stop udpping-build
+lxc publish udpping-build --alias udpping
+lxc delete udpping-build
+
+
+
+----
+lxc launch ubuntu:16.04 nginx-build
+lxc file push build_nginx_lxd.sh nginx-build/root/
+lxc exec nginx-build bash /root/build_nginx_lxd.sh
+
+lxc stop nginx-build
+lxc publish nginx-build --alias nginx
+lxc delete nginx-build
+
+lxc launch nginx nginx
+iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 80 -j DNAT --to-destination 10.238.122.159:80
+
+iptables -t nat -D PREROUTING -p tcp -i eth0 --dport 80 -j DNAT --to-destination 10.238.122.159:80
+lxc stop nginx
+lxc delete nginx
+
+
+list all nat rules:
+iptables -L -vt nat
+
+
+

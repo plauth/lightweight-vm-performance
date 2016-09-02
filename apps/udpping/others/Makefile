@@ -3,6 +3,11 @@ RR_BAKE=rumprun-bake
 
 main: udpping.c
 	$(CC) udpping.c -o udpping
+	
+service: main
+	mv udpping /opt/
+	cp udpping.service /etc/systemd/system/
+	systemctl enable udpping.service 
 
 rumprun: udpping.c
 	$(CC_RR) udpping.c -o udpping
