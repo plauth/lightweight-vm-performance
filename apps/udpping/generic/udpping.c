@@ -4,7 +4,6 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
  
-#define SERVER "192.168.42.80"
 #define PORT 1337
  
 int main(void) {
@@ -27,11 +26,14 @@ int main(void) {
         fprintf(stderr, "inet_aton() failed\n");
         exit(1);
     }
- 	
+
+    for (int i = 0; i < 1000000; i++) {
     if (sendto(s, message, strlen(message) , 0 , (struct sockaddr *) &si_other, slen)==-1) {
         fprintf(stderr, "sendto() failed\n");
+    }
     }
  
     close(s);
     return 0;
 }
+

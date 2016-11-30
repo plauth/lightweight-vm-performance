@@ -1,7 +1,7 @@
 module Main (S:V1_LWT.STACKV4) = struct
   module U = S.UDPV4
 
-  let server = Ipaddr.V4.of_string_exn "192.168.42.80"
+  let server = Ipaddr.V4.of_string_exn "127.0.0.1"
   let port = 1337
   let msg = Cstruct.of_string "H"
 
