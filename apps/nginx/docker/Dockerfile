@@ -45,10 +45,10 @@ RUN make install
 
 WORKDIR /data/conf
 RUN rm nginx.conf
-RUN wget --no-check-certificate "https://www.dcl.hpi.uni-potsdam.de/media/nginx.conf"
+RUN wget --no-check-certificate "https://raw.githubusercontent.com/plauth/lightweight-vm-performance/master/apps/nginx/generic/nginx.conf"
 RUN mkdir /data/www
 WORKDIR /data/www
-RUN wget www.hpi.de/favicon.ico
+RUN wget "www.hpi.de/favicon.ico"
 
 
 EXPOSE 80

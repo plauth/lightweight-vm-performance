@@ -46,7 +46,7 @@ Nginx
 -----
 launch nginx on rumprun on xen:
 ```
-rumprun xen -M 1024 -i -I net1,xenif,script=vif-bridge,bridge=xenbr0,mac=00:16:3e:29:2b:7d -W net1,inet,dhcp -e RUMPRUN_SYSPROXY=tcp://0:12345 -b images/data.iso,/data -- ./nginx.bin -c /data/conf/nginx.conf
+rumprun xen -M 1024 -i -I net1,xenif,script=vif-bridge,bridge=xenbr0,mac=00:16:3e:29:2b:7d -W net1,inet,static,192.168.42.235/24,192.168.42.1 -e RUMPRUN_SYSPROXY=tcp://0:12345 -b images/data.iso,/data -- ./nginx.bin -c /data/conf/nginx.conf
 ```
 
 launch nginx on rumprun on kvm:
@@ -61,10 +61,15 @@ todo
 
 rumprun-bake xen_pv bin/redis-server.bin bin/redis-server
 
-rumprun xen -i -M 4096 -I net1,xenif,script=vif-bridge,bridge=xenbr1,mac=00:16:3e:29:2b:7d -W net1,inet,static,192.168.42.235/23,192.168.42.1 -e RUMPRUN_SYSPROXY=tcp://0:12345 -b images/data.iso,/data -b images/datapers.img,/backup -- bin/redis-server.bin /data/conf/redis_custom.conf
+rumprun xen -i -M 192 -I net1,xenif,script=vif-bridge,bridge=xenbr1,mac=00:16:3e:29:2b:7d -W net1,inet,static,192.168.42.235/23,192.168.42.1 -e RUMPRUN_SYSPROXY=tcp://0:12345 -b images/data.iso,/data -b images/datapers.img,/backup -- bin/redis-server.bin /data/conf/redis_custom.conf
+
+kvm
+rumprun kvm -i -M 256 -I if,vioif,'-net tap,ifname=tap0,script=/etc/qemu-ifup' -W if,inet,static,192.168.42.235/24,192.168.42.1 -e RUMPRUN_SYSPROXY=tcp://0:12345 -b images/data.iso,/data -b images/datapers.img,/backup -- bin/redis-server.bin /data/conf/redis_custom.conf
 
 install docker:
 https://docs.docker.com/engine/installation/linux/ubuntulinux/
+
+docker build -t "udpping" .
 
 docker run -d -p 80:80 nginx
 
@@ -84,3 +89,11 @@ sysctl -w proc.1.rlimit.descriptors.hard=200000
 sysctl -w proc.2.rlimit.descriptors.hard=200000
 sysctl -w proc.2.rlimit.descriptors.soft=200000
 rumpctrl_unload
+
+
+
+OSv:
+apt-get install build-essential libboost-all-dev genromfs autoconf libtool openjdk-8-jdk ant qemu-utils maven libmaven-shade-plugin-java python-dpkt tcpdump gdb qemu-system-x86 gawk gnutls-bin openssl python-requests lib32stdc++-4.9-dev p11-kit
+
+scripts/run.py -nv -m 384M -c 1 -e "--ip=eth0,192.168.42.235,255.255.254.0 \
+--defaultgw=192.168.42.1 --nameserver=192.168.42.2 `cat build/release/cmdline`"

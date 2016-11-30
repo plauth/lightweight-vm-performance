@@ -1,0 +1,10 @@
+[Unit]
+Description=Nginx
+
+[Service]
+Type=simple
+Environment=LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+ExecStart=/usr/local/nginx/sbin/nginx
+
+[Install]
+WantedBy=multi-user.target
