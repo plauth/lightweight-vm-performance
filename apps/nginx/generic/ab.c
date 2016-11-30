@@ -1,3 +1,5 @@
+// This benchmark wrapper has been slightly modified to additionally compute
+// standard deviation values for the retrieved benchmark runs.
 // ============================================================================
 // G-WAN ApacheBench / Weighttp / HTTPerf wrapper    http://gwan.ch/source/ab.c
 // See the benchmark tutorial:       http://gwan.ch/en_apachebench_httperf.html
