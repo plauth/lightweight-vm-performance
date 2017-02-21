@@ -1,2 +1,2 @@
 #!/bin/bash
-ssh root@127.0.0.1 'shutdown -h now'
+ssh root@192.168.42.42 'shutdown -h now'

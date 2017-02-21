@@ -1,6 +1,6 @@
 CC_RR=x86_64-rumprun-netbsd-gcc
 RR_BAKE=rumprun-bake
-SERVER=127.0.0.1
+SERVER=192.168.42.42
 
 main: udpping.c
 	$(CC) -DSERVER=\"$(SERVER)\" udpping.c -o udpping

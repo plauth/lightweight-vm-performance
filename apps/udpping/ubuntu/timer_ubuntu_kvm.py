@@ -12,7 +12,7 @@ def netcat():
     end = time.time() - start
     print ("It took %f seconds to bring up the image!" % end)
     time.sleep(15)
-    subprocess.call(['/home/max.plauth/shutdown_ubuntu.sh'])
+    subprocess.call(['shutdown.sh'])
     time.sleep(20)
     
 def process():
