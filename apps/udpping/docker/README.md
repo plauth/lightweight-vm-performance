@@ -5,7 +5,7 @@ Docker has to be installed. For instructions, please refer to https://docs.docke
 Setup
 =====
 ```sh
-docker build -t "udpping"
+docker build -t "udpping" .
 ```
 
 Benchmark

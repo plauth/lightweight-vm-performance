@@ -41,23 +41,8 @@ mirage configure -t xen --ip=192.168.42.235 --gateways=192.168.42.1 --netmask=25
 
 Application performance
 =======================
-
-Nginx
------
-launch nginx on rumprun on xen:
-```
-rumprun xen -M 1024 -i -I net1,xenif,script=vif-bridge,bridge=xenbr0,mac=00:16:3e:29:2b:7d -W net1,inet,static,192.168.42.235/24,192.168.42.1 -e RUMPRUN_SYSPROXY=tcp://0:12345 -b images/data.iso,/data -- ./nginx.bin -c /data/conf/nginx.conf
-```
-
-launch nginx on rumprun on kvm:
-```
-rumprun kvm -M 128 -I if,vioif,'-net tap,ifname=tap0,script=/etc/qemu-ifup' -W if,inet,dhcp -e RUMPRUN_SYSPROXY=tcp://0:12345 -b images/data.iso,/data -- ./nginx.bin -c /data/conf/nginx.conf
-rumprun kvm -M 128 -I if,vioif,'-net tap,ifname=tap0,script=/etc/qemu-ifup' -W if,inet,static,192.168.42.235/24,192.168.42.1 -e RUMPRUN_SYSPROXY=tcp://0:12345 -b images/data.iso,/data -- ./nginx.bin -c /data/conf/nginx.conf
-```
-
 Redis
 -----
-todo
 
 rumprun-bake xen_pv bin/redis-server.bin bin/redis-server
 
@@ -66,12 +51,6 @@ rumprun xen -i -M 192 -I net1,xenif,script=vif-bridge,bridge=xenbr1,mac=00:16:3e
 kvm
 rumprun kvm -i -M 256 -I if,vioif,'-net tap,ifname=tap0,script=/etc/qemu-ifup' -W if,inet,static,192.168.42.235/24,192.168.42.1 -e RUMPRUN_SYSPROXY=tcp://0:12345 -b images/data.iso,/data -b images/datapers.img,/backup -- bin/redis-server.bin /data/conf/redis_custom.conf
 
-install docker:
-https://docs.docker.com/engine/installation/linux/ubuntulinux/
-
-docker build -t "udpping" .
-
-docker run -d -p 80:80 nginx
 
 stop all containers:
 ```docker stop $(docker ps -a -q)```
@@ -80,15 +59,6 @@ delete all containers:
 delete all images:
 ```docker rmi $(docker images -q)```
 
-
-export RUMP_SERVER=tcp://192.168.42.235:12345
-sysctl -w proc.0.rlimit.descriptors.soft=200000
-sysctl -w proc.0.rlimit.descriptors.hard=200000
-sysctl -w proc.1.rlimit.descriptors.soft=200000
-sysctl -w proc.1.rlimit.descriptors.hard=200000
-sysctl -w proc.2.rlimit.descriptors.hard=200000
-sysctl -w proc.2.rlimit.descriptors.soft=200000
-rumpctrl_unload
 
 
 
