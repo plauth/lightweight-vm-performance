@@ -1,5 +1,5 @@
-Perquisites
-===========
+Prerequisites
+=============
 ```sh
 sudo apt install lxd
 sudo dpkg-reconfigure -p medium lxd
