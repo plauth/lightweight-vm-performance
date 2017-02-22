@@ -1,8 +1,8 @@
 #!/bin/bash
-lxc launch ubuntu:16.04 redis-build
-lxc file push ../generic/build_redis.sh redis-build/root/
-lxc exec redis-build -- sh -c "chmod +x /root/build_redis.sh && /root/build_redis.sh"
+lxc launch ubuntu:16.04 udpping-build
+lxc file push ../generic/build_udpping.sh udpping-build/root/
+lxc exec udpping-build -- sh -c "chmod +x /root/build_udpping.sh && /root/build_udpping.sh"
 
-lxc stop redis-build
-lxc publish redis-build --alias redis
-lxc delete redis-build
+lxc stop udpping-build
+lxc publish udpping-build --alias udpping
+lxc delete udpping-build
