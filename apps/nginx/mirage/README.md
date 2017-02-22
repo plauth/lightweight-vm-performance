@@ -1,6 +1,6 @@
 Prerequisites
 =============
-Please follow the instructions on https://mirage.io/wiki/install.
+Please follow the instructions on https://mirage.io/wiki/install. Since no OCaml port of Nginx exists, we have to resort to using the basic HTTP server example provided by the authors of MirageOS, the `conduit_server`. 
 
 Setup
 =====

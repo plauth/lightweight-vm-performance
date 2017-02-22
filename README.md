@@ -1,44 +1,13 @@
-# lightweight-vm-performance
+Contents
+========
+This repository contains the installation instructions, configuration details and implementations for assessing the performance of different lightweight virtualization approaches. The range of evaluated approaches includes containerized approaches, unikernels and regular whole-system virtualization. Representing the class of containerized approaches, we consider Docker and LXD. On the side of unikernels, we investigated Rumprun, OSv and MirageOS.
 
-Startup time measurement
-========================
+To asses the influence of the virtualization approaches on application performance, we employ the Nginx HTTP server and the Redis key-value store as exemplary applications. To furthermore asses non-functional parameters such as instantiation time, we include a small custom benchmark setup called udpping.
 
-xen tuning:
-/etc/default/grub:
-```
-GRUB_CMDLINE_XEN_DEFAULT="dom0_mem=4096M,max:4096M"
-```
-/etc/xen/xl.conf
-```
-autoballoon=0
-```
-then update-grub and reboot
+Repository Structure
+====================
+The `apps` folder contains all benchmark scripts, setup instructions and configuration details for each application and virtualization approach. In `results`, we provide the results of our own measurements. The directory `unikernel` points to the repositories that host the evaluated unikernel implementations.
 
-
-build static-website for mirage on xen:
-```
-mirage configure -t xen --ip=192.168.42.235 --gateways=192.168.42.1 --netmask=255.255.255.0 --kv_ro=fat --network=0
-```
-
-
-Application performance
-=======================
-Redis
------
-
-
-stop all containers:
-```docker stop $(docker ps -a -q)```
-delete all containers:
-```docker rm $(docker ps -a -q)```
-delete all images:
-```docker rmi $(docker images -q)```
-
-
-
-
-OSv:
-apt-get install build-essential libboost-all-dev genromfs autoconf libtool openjdk-8-jdk ant qemu-utils maven libmaven-shade-plugin-java python-dpkt tcpdump gdb qemu-system-x86 gawk gnutls-bin openssl python-requests lib32stdc++-4.9-dev p11-kit
-
-scripts/run.py -nv -m 384M -c 1 -e "--ip=eth0,192.168.42.235,255.255.254.0 \
---defaultgw=192.168.42.1 --nameserver=192.168.42.2 `cat build/release/cmdline`"
+General Remarks
+===============
+Most scripts and instructions contain [placeholders] for network configuration details such as IP addresses. Please make sure to replace these placeholders with the actual values of your environment.
