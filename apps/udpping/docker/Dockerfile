@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y \
         wget \
         build-essential \
         make
-RUN wget --no-check-certificate "https://www.dcl.hpi.uni-potsdam.de/media/udpping.c"
-RUN cc -DSERVER=\"192.168.42.42\" udpping.c -o udpping
+RUN wget --no-check-certificate "https://raw.githubusercontent.com/plauth/lightweight-vm-performance/master/apps/udpping/generic/udpping.c"
+RUN cc -DSERVER=\"[IP_OF_CONTAINER_HOST]\" udpping.c -o udpping
 
 RUN mv udpping /usr/sbin
 
