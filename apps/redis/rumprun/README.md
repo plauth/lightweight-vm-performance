@@ -57,5 +57,5 @@ rumpctrl_unload
 Benchmark
 =========
 ```sh
-redis-benchmark -h [IP_OF_TARGET_HOST] -c [1-1000] -n 100000 -k 1 -t set,get
+redis-benchmark -h [IP_OF_RUMPRUN_INSTANCE] -c [1-1000] -n 100000 -k 1 -t set,get
 ```
