@@ -1,0 +1,5 @@
+base: cloudius/osv-base
+cmdline: /udpping
+build: make
+files:
+    /udpping: udpping

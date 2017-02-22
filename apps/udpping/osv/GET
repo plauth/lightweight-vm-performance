@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Build a directory from the upstream redis 
+set -e
+
+wget --no-check-certificate "https://raw.githubusercontent.com/plauth/lightweight-vm-performance/master/apps/udpping/generic/udpping.c"
+cc -DSERVER=\"[IP_OF_VM_HOST]\" -fPIC -shared udpping.c -o udpping
+pwd
+echo "/udpping: ${PWD}/udpping" > usr.manifest
