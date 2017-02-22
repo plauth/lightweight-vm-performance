@@ -4,3 +4,12 @@
 [submodule "apps/rumprun-packages"]
 	path = apps/rumprun-packages
 	url = https://github.com/rumpkernel/rumprun-packages
+[submodule "unikernel/mirage"]
+	path = unikernel/mirage
+	url = https://github.com/mirage/mirage.git
+[submodule "unikernel/osv"]
+	path = unikernel/osv
+	url = https://github.com/cloudius-systems/osv.git
+[submodule "apps/mirage-skeleton"]
+	path = apps/mirage-skeleton
+	url = https://github.com/mirage/mirage-skeleton.git
